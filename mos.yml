@@ -2,10 +2,13 @@ name: blynk
 type: lib
 # arch: PLATFORM
 version: 1.0
-skeleton_version: 2017-05-16
+skeleton_version: 2017-05-18
 sources:
   - src
 filesystem:
   - fs
-build_vars:
-  APP_CONF_SCHEMA: src/conf_schema.yml
+config_schema:
+  - ["blynk", "o", {"title": "Blynk settings"}]
+  - ["blynk.enable", "b", true, {"title": "Enable Blynk"}]
+  - ["blynk.server", "s", "blynk-cloud.com:8442", {"title": "Server address"}]
+  - ["blynk.auth", "s", "", {"title": "Auth token"}]
