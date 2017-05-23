@@ -1,4 +1,6 @@
+author: mongoose-os
 name: blynk
+descrition: Blynk mobile app integration
 type: lib
 # arch: PLATFORM
 version: 1.0
@@ -12,3 +14,5 @@ config_schema:
   - ["blynk.enable", "b", true, {"title": "Enable Blynk"}]
   - ["blynk.server", "s", "blynk-cloud.com:8442", {"title": "Server address"}]
   - ["blynk.auth", "s", "", {"title": "Auth token"}]
+tags:
+  - js      # Supports JavaScript
