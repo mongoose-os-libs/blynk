@@ -1,6 +1,6 @@
 author: mongoose-os
 name: blynk
-descrition: Blynk mobile app integration
+description: Blynk mobile app integration
 type: lib
 # arch: PLATFORM
 version: 1.0
