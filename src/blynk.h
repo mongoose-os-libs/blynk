@@ -29,7 +29,7 @@ void blynk_send(struct mg_connection *c, uint8_t type, uint16_t id,
                 const void *data, uint16_t len);
 void blynk_printf(struct mg_connection *c, uint8_t type, uint16_t id,
                          const char *fmt, ...);
-bool blynk_init(void);
+bool mgos_blynk_init(void);
 
 #ifdef __cplusplus
 }

@@ -154,7 +154,7 @@ static void reconnect_timer_cb(void *arg) {
   s_blynk_conn = mgos_connect(get_cfg()->blynk.server, ev_handler, arg);
 }
 
-bool blynk_init(void) {
+bool mgos_blynk_init(void) {
   blynk_set_handler(default_blynk_handler, NULL);
   mgos_set_timer(s_reconnect_interval_ms, true, reconnect_timer_cb, NULL);
   return true;
