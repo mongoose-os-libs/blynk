@@ -9,8 +9,6 @@ tags:
 
 sources:
   - src
-filesystem:
-  - fs
 config_schema:
   - ["blynk", "o", {"title": "Blynk settings"}]
   - ["blynk.enable", "b", true, {"title": "Enable Blynk"}]
