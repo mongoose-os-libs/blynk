@@ -44,7 +44,7 @@ enum blynk_msg_type {
 
 /* Same as as `blynk_send()`, formats message using `printf()` semantics. */
 void blynk_printf(struct mg_connection *c, uint8_t type, uint16_t id,
-                         const char *fmt, ...);
+                  const char *fmt, ...);
 
 bool mgos_blynk_init(void);
 

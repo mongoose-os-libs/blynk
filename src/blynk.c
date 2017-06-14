@@ -46,7 +46,7 @@ void blynk_send(struct mg_connection *c, uint8_t type, uint16_t id,
 }
 
 void blynk_printf(struct mg_connection *c, uint8_t type, uint16_t id,
-                         const char *fmt, ...) {
+                  const char *fmt, ...) {
   char buf[100];
   int len;
   va_list ap;
