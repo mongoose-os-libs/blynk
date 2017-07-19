@@ -1,11 +1,11 @@
 #include "common/platform.h"
-#include "fw/src/mgos_app.h"
-#include "fw/src/mgos_gpio.h"
-#include "fw/src/mgos_hal.h"
-#include "fw/src/mgos_mongoose.h"
-#include "fw/src/mgos_sys_config.h"
-#include "fw/src/mgos_timers.h"
-#include "fw/src/mgos_dlsym.h"
+#include "mgos_app.h"
+#include "mgos_gpio.h"
+#include "mgos_hal.h"
+#include "mgos_mongoose.h"
+#include "mgos_sys_config.h"
+#include "mgos_timers.h"
+#include "mgos_dlsym.h"
 #include "blynk.h"
 
 static struct mg_connection *s_blynk_conn = NULL;
