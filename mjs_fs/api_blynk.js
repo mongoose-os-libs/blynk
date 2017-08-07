@@ -11,7 +11,7 @@ let Blynk = {
   // Write to the virtual pin.
   // This is a helper function that uses `Blynk.send()`
   virtualWrite: function(conn, pin, val) {
-    let msg = 'vr\x00' + JSON.stringify(pin) + '\x00' + JSON.stringify(val);
+    let msg = 'vw\x00' + JSON.stringify(pin) + '\x00' + JSON.stringify(val);
     this.send(conn, 20, msg);
   },
 
