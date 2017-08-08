@@ -57,7 +57,7 @@ void blynk_printf(struct mg_connection *c, uint8_t type, uint16_t id,
 }
 
 static void default_blynk_handler(struct mg_connection *c, const char *cmd,
-                                  int id, int pin, int val, void *user_data) {
+                                  int pin, int val, int id, void *user_data) {
   if (strcmp(cmd, "vr") == 0) {
     if (pin == s_read_virtual_pin) {
       blynk_printf(c, BLYNK_HARDWARE, id, "vw%c%d%c%d", 0, s_read_virtual_pin,
@@ -94,7 +94,7 @@ static void handle_blynk_frame(struct mg_connection *c, void *user_data, int id,
           pin += data[i] - '0';
         }
         LOG(LL_DEBUG, ("BLYNK HW: vr %d", pin));
-        s_blynk_handler(c, "vr", id, pin, 0, s_user_data);
+        s_blynk_handler(c, "vr", pin, 0, id, s_user_data);
       } else if (len >= 4 && memcmp(data + BLYNK_HEADER_SIZE, "vw", 3) == 0) {
         int i, pin = 0, val = 0;
         for (i = BLYNK_HEADER_SIZE + 3; i < len && data[i]; i++) {
@@ -106,7 +106,7 @@ static void handle_blynk_frame(struct mg_connection *c, void *user_data, int id,
           val += data[i] - '0';
         }
         LOG(LL_DEBUG, ("BLYNK HW: vw %d %d", pin, val));
-        s_blynk_handler(c, "vw", id, pin, val, s_user_data);
+        s_blynk_handler(c, "vw", pin, val, id, s_user_data);
       }
       break;
   }

@@ -21,7 +21,7 @@ let Blynk = {
   // 
   // Example:
   // ```javascript
-  // Blynk.setHandler(function(conn, cmd, pin, val) {
+  // Blynk.setHandler(function(conn, cmd, pin, val, id) {
   //   print(cmd, pin, val);
   // }, null);
   // ```

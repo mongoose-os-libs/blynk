@@ -24,8 +24,8 @@ extern "C" {
 #define BLYNK_HEADER_SIZE 5
 
 /* Blynk event handler signature. */
-typedef void (*blynk_handler_t)(struct mg_connection *, const char *cmd, int id,
-                                int pin, int val, void *user_data);
+typedef void (*blynk_handler_t)(struct mg_connection *, const char *cmd,
+                                int pin, int val, int id, void *user_data);
 
 /* Set Blynk event handler. */
 void blynk_set_handler(blynk_handler_t func, void *user_data);
