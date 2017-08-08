@@ -45,6 +45,10 @@ void blynk_send(struct mg_connection *c, uint8_t type, uint16_t id,
   mg_send(c, data, len);
 }
 
+void blynk_virtual_write(struct mg_connection *c, int pin, float val, int id) {
+  blynk_printf(c, BLYNK_HARDWARE, id, "vw%c%d%c%f", 0, pin, 0, val);
+}
+
 void blynk_printf(struct mg_connection *c, uint8_t type, uint16_t id,
                   const char *fmt, ...) {
   char buf[100];
@@ -60,8 +64,8 @@ static void default_blynk_handler(struct mg_connection *c, const char *cmd,
                                   int pin, int val, int id, void *user_data) {
   if (strcmp(cmd, "vr") == 0) {
     if (pin == s_read_virtual_pin) {
-      blynk_printf(c, BLYNK_HARDWARE, id, "vw%c%d%c%d", 0, s_read_virtual_pin,
-                   0, (int) mgos_get_free_heap_size() / 1024);
+      blynk_virtual_write(c, id, s_read_virtual_pin,
+                          (float) mgos_get_free_heap_size() / 1024);
     }
   } else if (strcmp(cmd, "vw") == 0) {
     if (pin == s_write_virtual_pin) {

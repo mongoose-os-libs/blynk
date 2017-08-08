@@ -46,6 +46,9 @@ enum blynk_msg_type {
 void blynk_printf(struct mg_connection *c, uint8_t type, uint16_t id,
                   const char *fmt, ...);
 
+/* Send a virtual write command */
+void blynk_virtual_write(struct mg_connection *c, int pin, float val, int id);
+
 bool mgos_blynk_init(void);
 
 #ifdef __cplusplus
