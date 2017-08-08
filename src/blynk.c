@@ -57,11 +57,11 @@ void blynk_printf(struct mg_connection *c, uint8_t type, uint16_t id,
 }
 
 static void default_blynk_handler(struct mg_connection *c, const char *cmd,
-                                  int pin, int val, void *user_data) {
+                                  int id, int pin, int val, void *user_data) {
   if (strcmp(cmd, "vr") == 0) {
     if (pin == s_read_virtual_pin) {
-      blynk_printf(c, BLYNK_HARDWARE, 0, "vr%c%d%c%d", 0, s_read_virtual_pin, 0,
-                   (int) mgos_get_free_heap_size() / 1024);
+      blynk_printf(c, BLYNK_HARDWARE, id, "vw%c%d%c%d", 0, s_read_virtual_pin,
+                   0, (int) mgos_get_free_heap_size() / 1024);
     }
   } else if (strcmp(cmd, "vw") == 0) {
     if (pin == s_write_virtual_pin) {
@@ -72,7 +72,7 @@ static void default_blynk_handler(struct mg_connection *c, const char *cmd,
   (void) user_data;
 }
 
-static void handle_blynk_frame(struct mg_connection *c, void *user_data,
+static void handle_blynk_frame(struct mg_connection *c, void *user_data, int id,
                                const uint8_t *data, uint16_t len) {
   LOG(LL_DEBUG, ("BLYNK STATUS: type %hhu, len %hu rlen %hhu", data[0], len,
                  getuint16(data + 3)));
@@ -94,7 +94,7 @@ static void handle_blynk_frame(struct mg_connection *c, void *user_data,
           pin += data[i] - '0';
         }
         LOG(LL_DEBUG, ("BLYNK HW: vr %d", pin));
-        s_blynk_handler(c, "vr", pin, 0, s_user_data);
+        s_blynk_handler(c, "vr", id, pin, 0, s_user_data);
       } else if (len >= 4 && memcmp(data + BLYNK_HEADER_SIZE, "vw", 3) == 0) {
         int i, pin = 0, val = 0;
         for (i = BLYNK_HEADER_SIZE + 3; i < len && data[i]; i++) {
@@ -106,7 +106,7 @@ static void handle_blynk_frame(struct mg_connection *c, void *user_data,
           val += data[i] - '0';
         }
         LOG(LL_DEBUG, ("BLYNK HW: vw %d %d", pin, val));
-        s_blynk_handler(c, "vw", pin, val, s_user_data);
+        s_blynk_handler(c, "vw", id, pin, val, s_user_data);
       }
       break;
   }
@@ -132,7 +132,7 @@ static void ev_handler(struct mg_connection *c, int ev, void *ev_data,
         }
         if (type == BLYNK_RESPONSE) len = 0;
         if (c->recv_mbuf.len < (size_t) BLYNK_HEADER_SIZE + len) break;
-        handle_blynk_frame(c, user_data, buf, BLYNK_HEADER_SIZE + len);
+        handle_blynk_frame(c, user_data, id, buf, BLYNK_HEADER_SIZE + len);
         mbuf_remove(&c->recv_mbuf, BLYNK_HEADER_SIZE + len);
       }
       break;
