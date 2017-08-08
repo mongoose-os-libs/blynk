@@ -6,7 +6,7 @@
 #include "mgos_sys_config.h"
 #include "mgos_timers.h"
 #include "mgos_dlsym.h"
-#include "blynk.h"
+#include "mgos_blynk.h"
 
 static struct mg_connection *s_blynk_conn = NULL;
 static int s_reconnect_interval_ms = 3000;

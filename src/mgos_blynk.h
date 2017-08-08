@@ -4,12 +4,12 @@
 
 /*
  * See on GitHub:
- * [blynk.h](https://github.com/mongoose-os-libs/blynk/blob/master/src/blynk.h),
- * [blynk.c](https://github.com/mongoose-os-libs/blynk/blob/master/src/blynk.c)
+ * [mgos_blynk.h](https://github.com/mongoose-os-libs/blynk/blob/master/src/mgos_blynk.h),
+ * [mgos_blynk.c](https://github.com/mongoose-os-libs/blynk/blob/master/src/mgos_blynk.c)
  */
 
-#ifndef MOS_BLYNK_H_
-#define MOS_BLYNK_H_
+#ifndef CS_MOS_LIBS_BLYNK_SRC_MGOS_BLYNK_H_
+#define CS_MOS_LIBS_BLYNK_SRC_MGOS_BLYNK_H_
 
 #include <stdbool.h>
 
@@ -55,4 +55,4 @@ bool mgos_blynk_init(void);
 }
 #endif /* __cplusplus */
 
-#endif
+#endif /* CS_MOS_LIBS_BLYNK_SRC_MGOS_BLYNK_H_ */
