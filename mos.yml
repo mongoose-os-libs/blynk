@@ -5,6 +5,8 @@ version: 1.0
 
 sources:
   - src
+includes:
+  - include
 config_schema:
   - ["blynk", "o", {"title": "Blynk settings"}]
   - ["blynk.enable", "b", true, {"title": "Enable Blynk"}]
