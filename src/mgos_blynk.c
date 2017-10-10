@@ -122,8 +122,8 @@ static void ev_handler(struct mg_connection *c, int ev, void *ev_data,
   switch (ev) {
     case MG_EV_CONNECT:
       LOG(LL_DEBUG, ("BLYNK CONNECT"));
-      blynk_send(c, BLYNK_LOGIN, 1, get_cfg()->blynk.auth,
-                 strlen(get_cfg()->blynk.auth));
+      blynk_send(c, BLYNK_LOGIN, 1, mgos_sys_config_get_blynk_auth(),
+                 strlen(mgos_sys_config_get_blynk_auth()));
       break;
     case MG_EV_RECV:
       while (c->recv_mbuf.len >= BLYNK_HEADER_SIZE) {
@@ -152,10 +152,12 @@ static void ev_handler(struct mg_connection *c, int ev, void *ev_data,
 }
 
 static void reconnect_timer_cb(void *arg) {
-  if (!get_cfg()->blynk.enable || get_cfg()->blynk.server == NULL ||
-      get_cfg()->blynk.auth == NULL || s_blynk_conn != NULL)
+  if (!mgos_sys_config_get_blynk_enable() ||
+      mgos_sys_config_get_blynk_server() == NULL ||
+      mgos_sys_config_get_blynk_auth() == NULL || s_blynk_conn != NULL)
     return;
-  s_blynk_conn = mgos_connect(get_cfg()->blynk.server, ev_handler, arg);
+  s_blynk_conn =
+      mgos_connect(mgos_sys_config_get_blynk_server(), ev_handler, arg);
 }
 
 bool mgos_blynk_init(void) {
