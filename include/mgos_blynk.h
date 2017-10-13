@@ -3,9 +3,11 @@
  */
 
 /*
- * See on GitHub:
- * [mgos_blynk.h](https://github.com/mongoose-os-libs/blynk/blob/master/src/mgos_blynk.h),
- * [mgos_blynk.c](https://github.com/mongoose-os-libs/blynk/blob/master/src/mgos_blynk.c)
+ * Blynk API.
+ *
+ * This library supports only a subset of Blynk protocol - namely, virtual
+ * pin reading and virtual pin writing. That is enough to implement a very
+ * wide class of applications.
  */
 
 #ifndef CS_MOS_LIBS_BLYNK_SRC_MGOS_BLYNK_H_
