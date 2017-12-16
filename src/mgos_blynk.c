@@ -1,12 +1,12 @@
+#include "mgos_blynk.h"
 #include "common/platform.h"
 #include "mgos_app.h"
+#include "mgos_dlsym.h"
 #include "mgos_gpio.h"
 #include "mgos_hal.h"
 #include "mgos_mongoose.h"
 #include "mgos_sys_config.h"
 #include "mgos_timers.h"
-#include "mgos_dlsym.h"
-#include "mgos_blynk.h"
 
 static struct mg_connection *s_blynk_conn = NULL;
 static int s_reconnect_interval_ms = 3000;
@@ -156,8 +156,8 @@ static void reconnect_timer_cb(void *arg) {
       mgos_sys_config_get_blynk_server() == NULL ||
       mgos_sys_config_get_blynk_auth() == NULL || s_blynk_conn != NULL)
     return;
-  s_blynk_conn =
-      mgos_connect(mgos_sys_config_get_blynk_server(), ev_handler, arg);
+  s_blynk_conn = mg_connect(mgos_get_mgr(), mgos_sys_config_get_blynk_server(),
+                            ev_handler, arg);
 }
 
 bool mgos_blynk_init(void) {
