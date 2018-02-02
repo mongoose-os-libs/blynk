@@ -1,5 +1,13 @@
+/*
+ * Copyright (c) 2014-2017 Cesanta Software Limited
+ * All rights reserved
+ */
+
 #include "mgos_blynk.h"
+
+#include "common/cs_dbg.h"
 #include "common/platform.h"
+
 #include "mgos_app.h"
 #include "mgos_dlsym.h"
 #include "mgos_gpio.h"
