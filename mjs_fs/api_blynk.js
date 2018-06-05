@@ -1,5 +1,6 @@
 let Blynk = {
   _send: ffi('void blynk_send(void *, int, int, void *, int)'),
+  _getConn: ffi('void *mgos_get_blynk_connection(void)'),
 
   // **`Blynk.send(conn, type, msg, id)`**
   // Send raw message to Blynk server.
@@ -22,6 +23,7 @@ let Blynk = {
   // Blynk.send(conn, Blynk.TYPE_HARDWARE, 'vw\x0016\x001');
   // ```
   send: function(conn, type, msg, id) {
+    conn = conn || this._getConn();
     this._send(conn, type, id || 0, msg, msg.length);
   },
 
@@ -35,8 +37,33 @@ let Blynk = {
   // Blynk.virtualWrite(conn, 16, 1);
   // ```
   virtualWrite: function(conn, pin, val, id) {
+    conn = conn || this._getConn();
     let msg = 'vw\x00' + JSON.stringify(pin) + '\x00' + JSON.stringify(val);
     this.send(conn, Blynk.TYPE_HARDWARE, msg, id);
+  },
+
+  // **`Blynk.isConnected()`**
+  // Return value: boolean.
+  // Checks connection status, returns true if connection is established.
+  isConnected: function() {
+    return this._getConn() !== null;
+  },
+
+  // **`Blynk.getConnection()`**
+  // Return value: BlynkConnection.
+  // Returns active Blynk connection that could be used for data push.
+  // Example:
+  // ```javascript
+  // let conn = Blynk.getConnection();
+  // if (conn) {
+  //   Blynk.virtualWrite(conn, 16, 1); 
+  // } else {
+  //   print('ERROR: no active connection to Blynk');
+  // }
+  // 
+  // ```
+  getConnection: function() {
+    return this._getConn();
   },
 
   TYPE_RESPONSE: 0,

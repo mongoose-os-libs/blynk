@@ -180,6 +180,10 @@ static void reconnect_timer_cb(void *arg) {
                             ev_handler, arg);
 }
 
+struct mg_connection *mgos_get_blynk_connection(void) {
+  return s_blynk_conn;
+}
+
 bool mgos_blynk_init(void) {
   blynk_set_handler(default_blynk_handler, NULL);
   mgos_set_timer(s_reconnect_interval_ms, true, reconnect_timer_cb, NULL);
